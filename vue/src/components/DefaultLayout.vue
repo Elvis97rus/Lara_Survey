@@ -15,17 +15,17 @@
           </div>
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
-              <button type="button" class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                <span class="sr-only">View notifications</span>
-                <BellIcon class="h-6 w-6" aria-hidden="true" />
-              </button>
+<!--              <button type="button" class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">-->
+<!--                <span class="sr-only">View notifications</span>-->
+<!--                <BellIcon class="h-6 w-6" aria-hidden="true" />-->
+<!--              </button>-->
 
               <!-- Profile dropdown -->
               <Menu as="div" class="ml-3 relative">
                 <div>
                   <MenuButton class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt="" />
+                    <img class="h-8 w-8 rounded-full" src="" alt="" />
                   </MenuButton>
                 </div>
                 <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
@@ -56,16 +56,16 @@
         <div class="pt-4 pb-3 border-t border-gray-700">
           <div class="flex items-center px-5">
             <div class="flex-shrink-0">
-              <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" />
+<!--              <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="" />-->
             </div>
-            <div class="ml-3">
-              <div class="text-base font-medium leading-none text-white">{{ user.name }}</div>
-              <div class="text-sm font-medium leading-none text-gray-400">{{ user.email }}</div>
-            </div>
-            <button type="button" class="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-              <span class="sr-only">View notifications</span>
-              <BellIcon class="h-6 w-6" aria-hidden="true" />
-            </button>
+<!--            <div class="ml-3">-->
+<!--              <div class="text-base font-medium leading-none text-white">{{ user.name }}</div>-->
+<!--              <div class="text-sm font-medium leading-none text-gray-400">{{ user.email }}</div>-->
+<!--            </div>-->
+<!--            <button type="button" class="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">-->
+<!--              <span class="sr-only">View notifications</span>-->
+<!--              <BellIcon class="h-6 w-6" aria-hidden="true" />-->
+<!--            </button>-->
           </div>
           <div class="mt-3 px-2 space-y-1">
             <DisclosureButton as="a" @click="logout" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer">Sign out</DisclosureButton>
@@ -109,10 +109,12 @@ export default {
     const router = useRouter();
 
     function logout() {
-      store.commit("logout");
-      router.push({
-        name: "Login",
-      });
+      store.dispatch("logout")
+        .then(()=>{
+          router.push({
+            name: "Login",
+          });
+        });
     }
 
     return {

@@ -7,7 +7,7 @@
 </template>
 
 <style>
-#app {
+  #app {
 
-}
+  }
 </style>

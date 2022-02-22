@@ -43,30 +43,30 @@
 </template>
 
 <script setup>
-import { LockClosedIcon } from '@heroicons/vue/solid';
-import store from '../store';
-import {useRouter} from "vue-router";
+  import { LockClosedIcon } from '@heroicons/vue/solid';
+  import store from '../store';
+  import {useRouter} from "vue-router";
 
-const router = useRouter();
-const user = {
-  name: '',
-  email: '',
-  password: '',
-  password_confirmation: '',
-};
+  const router = useRouter();
+  const user = {
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+  };
 
-function register(e) {
-  e.preventDefault();
-  store
-    .dispatch('register',user)
-    .then((res)=>{
-      if (res.errors){
-        console.log(res)
-      } else {
-        router.push({
-          name: 'Dashboard'
-        })
-      }
-    });
-}
+  function register(e) {
+    e.preventDefault();
+    store
+      .dispatch('register',user)
+      .then((res)=>{
+        // if (res.errors){
+        //   console.log(res)
+        // } else {
+          router.push({
+            name: 'Dashboard'
+          })
+        // }
+      });
+  }
 </script>
