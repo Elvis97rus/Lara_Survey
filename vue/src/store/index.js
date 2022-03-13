@@ -1,5 +1,6 @@
 import {createStore} from "vuex";
 import axiosClient from '../axios.js';
+import {comment} from "postcss";
 
 const tmpSurveys = [
   {
@@ -153,6 +154,23 @@ const store = createStore({
   },
   getters: {},
   actions: {
+    saveSurvey({commit}, survey) {
+      let response;
+      if (survey.id) {
+        response = axiosClient.put(`/survey/${survey.id}`, survey)
+          .then((res) => {
+            commit("updateSurvey", res.data);
+            return res;
+          })
+      } else {
+        response = axiosClient.post("/survey", survey)
+          .then((res) => {
+            commit("saveSurvey", res.data);
+            return res;
+        })
+      }
+      return response;
+    },
     register({ commit }, user) {
       return axiosClient.post('/register', user)
         .then(({data})=>{
@@ -184,7 +202,18 @@ const store = createStore({
       state.user.token = userData.token;
       state.user.data = userData.data;
       sessionStorage.setItem('TOKEN', userData.token);
-    }
+    },
+    saveSurvey: (state, survey) => {
+      state.surveys = [...state.surveys, survey.data];
+      },
+    updateSurvey: (state, survey) => {
+      state.surveys = state.surveys.map((s) => {
+        if (s.id === survey.data.id) {
+          return survey.data;
+        }
+        return s;
+      })
+    },
   },
   modules: {}
 })
