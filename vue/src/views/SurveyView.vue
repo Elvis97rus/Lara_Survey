@@ -7,7 +7,6 @@
         </h1>
       </div>
     </template>
-    <pre>{{model}}</pre>
     <form @submit.prevent="saveSurvey">
       <div class="shadow sm:rounded-md sm:overflow-hidden">
           <!--   Survey Fields     -->
@@ -147,9 +146,10 @@ import {v4 as uuidv4 } from "uuid";
 import PageComponent from "../components/PageComponent.vue"
 import QuestionEditor from "../components/editor/QuestionEditor.vue"
 import {ref} from "vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import store from "../store";
 
+const router = useRouter();
 const route = useRoute();
 let model = ref({
   title: "",
@@ -188,6 +188,29 @@ function questionChange(question) {
     }
     return q;
   })
+}
+
+function saveSurvey() {
+  store.dispatch("saveSurvey", model.value).then(({ data }) => {
+    router.push({
+      name: "SurveyView",
+      params: { id: data.data.id },
+    })
+  });
+  // let action = "created";
+  // if (model.value.id) {
+  //   action = "updated";
+  // }
+  // store.dispatch("saveSurvey", { ...model.value }).then(({ data }) => {
+  //   store.commit("notify", {
+  //     type: "success",
+  //     message: "The survey was successfully " + action,
+  //   });
+  //   router.push({
+  //     name: "SurveyView",
+  //     params: { id: data.data.id },
+  //   });
+  // });
 }
 </script>
 
